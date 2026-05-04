@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>25</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #fafafa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Hero Section (Gradient + Wave) */
+    .hero-wrapper {
+      background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+      position: relative;
+      padding-top: 3rem;
+      padding-bottom: 5rem; 
+    }
+    .wave-container {
+      position: absolute;
+      bottom: -1px; 
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .wave-container svg {
+      position: relative;
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 70px;
+    }
+
+    /* Layout Constraints */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .main-content {
+      padding-top: 2rem;
+      padding-bottom: 4rem;
+    }
+
+    /* Header Styling */
+    .letter-header {
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    .letter-header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff; 
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Individual Block Styling */
+    .letter-block {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem; /* Reduced spacing here because the wave separator adds its own spacing */
+    }
+
+    /* Media Handling */
+    .media-container {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    .media-container img, 
+    .media-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .text-container {
+      width: 100%;
+    }
+    .text-container p {
+      font-size: 1.125rem;
+      color: #4a4a4a;
+      margin-bottom: 1rem;
+    }
+
+    /* Header Gallery */
+    .header-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      width: 100%;
+    }
+    .header-gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
+    .header-gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    /* =========================================
+       NEW: Standalone Wave Separator Styling
+       ========================================= */
+    .wave-separator {
+      width: 100%;
+      height: 30px;
+      margin-top: 1rem;
+      margin-bottom: 4rem; /* Controls spacing before the next picture */
+      opacity: 0.8;
+    }
+    .wave-separator svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none; 
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      animation: fadeIn 0.4s ease;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #999;
+      transition: color 0.2s;
+    }
+    .close-btn:hover {
+      color: #333;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero-wrapper">
+    <div class="container">
+      <div class="header-gallery">
+        <img src="src/lycahugo.jpg" alt="lycahugo">
+        <img src="src/hugo.gif" alt="hugo">
+        <img src="src/lycahugo2.gif" alt="lycahugo2">
+      </div>
+      <header class="letter-header">
+        <h1>Happy Birthday bb!</h1>
+      </header>
+    </div>
+    <div class="wave-container">
+      <svg viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#fafafa" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,160C672,139,768,117,864,128C960,139,1056,181,1152,186.7C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
+    </div>
+  </div>
+
+  <div class="container main-content">
+    <main>
+      <section class="letter-block">
+        <div class="text-container">
+        <p>
+          I was wondering what to give you for your birthday other than the bangboo pillow, and
+          with my limitations with my budgets (sowwy), I decided to make this "portfolio" of our memories together!
+          I hope this is enough to show you how much you are to me. Enjoy!
+        </p>
+        </div>
+        <div class="media-container">
+          <video src="src/1.mp4" alt="Icha" autoplay loop muted playsinline></video>
+        </div>
+        <div class="text-container">
+          <p>Wow, time flies so fast.. You're halfway through 20 now! (i make it sound like a good thing meheh)
+            It's been a while since I wrote something like this, let along not talking, like, how we always do meheh<br>
+            I said what I said in the first sentence because going through my gallery while looking for videos and
+            pictures to put in this letter, I can't help but feel like time has flown by so fast.
+          </p>
+        </div>
+      </section>
+
+      <div class="wave-separator">
+        <svg viewBox="0 0 500 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,25 C150,50 350,0 500,25" fill="none" stroke="url(#gradient-line)" stroke-width="4"/>
+          <defs>
+            <linearGradient id="gradient-line" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#a18cd1;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#fbc2eb;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <section class="letter-block">
+        <div class="media-container">
+          <img src="src/23.jpeg" alt="2023">
+        </div>
+        <div class="text-container">
+          <p>I haven't really taken much pictures of every birthday, but I do cherish the ones that I did,
+            despite if we were just eating at some cheap place or something. (looking back at this picture, i'm
+            surprised i was able to eat all of this before..) Looking back at these pictures, I realized that
+            we don't have to eat in some fancy restaurant every time, I still enjoy every second of it.
+          </p>
+        </div>
+      </section>
+
+      <div class="wave-separator">
+        <svg viewBox="0 0 500 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,25 C150,50 350,0 500,25" fill="none" stroke="url(#gradient-line)" stroke-width="4"/>
+        </svg>
+      </div>
+
+      <section class="letter-block">
+        <div class="media-container">
+          <video src="src/2.mp4" alt="house" autoplay loop muted playsinline></video>
+        </div>
+        <div class="text-container">
+          <p>Even when we are just lazing around, I still enjoy every second I spend with you.
+          </p>
+        </div>
+      </section>
+
+      <div class="wave-separator">
+        <svg viewBox="0 0 500 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,25 C150,50 350,0 500,25" fill="none" stroke="url(#gradient-line)" stroke-width="4"/>
+        </svg>
+      </div>
+
+      <section class="letter-block">
+        <div class="media-container">
+          <video src="src/3.mp4" alt="tung" autoplay loop muted playsinline></video>
+        </div>
+        <div class="text-container">
+          <p>All we do is just eat, huh. I apologize I haven't really said much deep things or anything,
+            I just wanted to show you that I enjoy every second I spend with you, and I hope you know that.
+            (also i wanted to flex that i pro website maker meheheh)
+          </p>
+        </div>
+      </section>
+
+      <div class="wave-separator">
+        <svg viewBox="0 0 500 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,25 C150,50 350,0 500,25" fill="none" stroke="url(#gradient-line)" stroke-width="4"/>
+        </svg>
+      </div>
+
+      <section class="letter-block">
+        <div class="media-container">
+          <video src="src/4.mp4" alt="gacha" autoplay loop muted playsinline></video>
+        </div>
+        <div class="text-container">
+          <p>Here's to more birthdays, adventures, memories, and most importantly, more food meheheh
+            <br>Happy Birthday my bb! I love you so much.<br>
+            Now i dump some stuff below meheh
+          </p>
+        </div>
+      </section>
+
+      <div class="wave-separator">
+        <svg viewBox="0 0 500 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,25 C150,50 350,0 500,25" fill="none" stroke="url(#gradient-line)" stroke-width="4"/>
+        </svg>
+      </div>
+
+      <section class="letter-block">
+        <div class="media-container">
+          <img src="src/25.jpg" alt="2025">
+        </div>
+        <div class="text-container">
+          <p>yumy stek las year.. i towie no stek dis year.. we eat soon meheh
+          </p>
+        </div>
+      </section>
+
+      <div class="wave-separator">
+        <svg viewBox="0 0 500 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,25 C150,50 350,0 500,25" fill="none" stroke="url(#gradient-line)" stroke-width="4"/>
+        </svg>
+      </div>
+
+      <section class="letter-block">
+        <div class="media-container">
+          <img src="src/26.jpeg" alt="2026">
+        </div>
+        <div class="text-container">
+          <p>mor coco
+          </p>
+        </div>
+      </section>
+
+      <div class="wave-separator">
+        <svg viewBox="0 0 500 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,25 C150,50 350,0 500,25" fill="none" stroke="url(#gradient-line)" stroke-width="4"/>
+        </svg>
+      </div>
+
+      <section class="letter-block">
+        <div class="media-container">
+          <img src="src/261.jpeg" alt="abaca">
+        </div>
+        <div class="text-container">
+          <p>let also et mor pasta dis year meheh
+          </p>
+        </div>
+      </section>
+
+      <div class="wave-separator">
+        <svg viewBox="0 0 500 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,25 C150,50 350,0 500,25" fill="none" stroke="url(#gradient-line)" stroke-width="4"/>
+        </svg>
+      </div>
+
+      <section class="letter-block">
+        <div class="media-container">
+          <img src="src/264.jpeg" alt="ph">
+        </div>
+        <div class="text-container">
+          <p>tenk u to bubut for sponsor .. even doe it filipino fud it still yumy
+          </p>
+        </div>
+      </section>
+
+      <div class="wave-separator">
+        <svg viewBox="0 0 500 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,25 C150,50 350,0 500,25" fill="none" stroke="url(#gradient-line)" stroke-width="4"/>
+        </svg>
+      </div>
+
+      <section class="letter-block">
+        <div class="media-container">
+          <video src="src/5.mp4" alt="hair" autoplay loop muted playsinline></video>
+        </div>
+        <div class="text-container">
+          <p>waoww u do hair (i making this while u do ur hair meheh)<br>
+            Anyway, that's all I have for you for now. Again, Happy Birthday bb! I love you.<br>
+            -Jake
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="messageModal" class="modal-overlay">
+    <div class="modal-content text-container">
+      <button id="closeModal" class="close-btn">&times;</button>
+      
+      <h2 style="margin-bottom: 1rem; color: #111; font-weight: 500;">Happy birthday, bb!</h2>
+      
+      <p>25... At first it sounds scary but thinking about it in the large scale of things, it's actually not that old!</p>
+      <p>Although not much has happened yet this year, I'm looking forward to all the things that
+        are in store for you this year! I'm proud of how far you've come, especially from where you were a few years ago.
+        It makes me so happy seeing you being more comfortable with your new environment and being able to make new friends and have fun with them. I hope you can continue to be happy and enjoy your life, and I hope I can be a part of that as well.
+      </p>
+      <p>
+        Even though we do not really "interact" with each other as much as before (like playing, calling, etc.), it ended up not being a bad thing
+        because seeing both of us being able to do our own things while trying our best to succeed academically without depending in each other
+        makes me happy. It always makes me proud and happy seeing you excel in your new course! 
+      </p>
+      <p>
+        I hope you can continue to be happy and enjoy your life, and I hope I can be a part of that as well. I'm proud of how far you've come, and I love you so much bb, and I hope you have a wonderful birthday!
+      </p>
+      <p>-Jake</p>
+      </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('messageModal');
+    const closeBtn = document.getElementById('closeModal');
+
+    // 1. Automatically open the modal as soon as the page loads
+    window.onload = function() {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // Prevents background scrolling while reading
+    };
+
+    // 2. Close the modal when clicking the 'X'
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Turns background scrolling back on
+    };
+
+    // 3. Close the modal if they click anywhere outside the white box
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    };
+  </script>
+
+</body>
+</html>
